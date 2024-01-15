@@ -20,8 +20,7 @@ def load_model(checkpoint=settings.DETECTOR_MODEL_CHECKPOINT, device=settings.TO
 
 
 def load_processor(checkpoint=settings.DETECTOR_MODEL_CHECKPOINT):
-    processor = SegformerImageProcessor.from_pretrained(checkpoint)
-    return processor
+    return SegformerImageProcessor.from_pretrained(checkpoint)
 
 
 class SegformerForMaskMLP(nn.Module):

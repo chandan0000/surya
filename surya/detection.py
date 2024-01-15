@@ -12,7 +12,7 @@ from surya.settings import settings
 
 
 def batch_inference(images: List, model, processor):
-    assert all([isinstance(image, Image.Image) for image in images])
+    assert all(isinstance(image, Image.Image) for image in images)
 
     images = [image.copy().convert("RGB") for image in images]
     orig_sizes = [image.size for image in images]

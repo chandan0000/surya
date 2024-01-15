@@ -18,10 +18,7 @@ class Settings(BaseSettings):
         if self.TORCH_DEVICE is not None:
             return self.TORCH_DEVICE
 
-        if torch.cuda.is_available():
-            return "cuda"
-
-        return "cpu"
+        return "cuda" if torch.cuda.is_available() else "cpu"
 
     # Text detection
     DETECTOR_BATCH_SIZE: int = 2 if TORCH_DEVICE_MODEL == "cpu" else 32

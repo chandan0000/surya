@@ -56,12 +56,10 @@ def load_from_folder(folder_path, max_pages=None):
     for path in image_paths:
         if filetype.guess(path).extension == "pdf":
             image, name = load_pdf(path, max_pages)
-            images.extend(image)
-            names.extend(name)
         else:
             image, name = load_image(path)
-            images.extend(image)
-            names.extend(name)
+        names.extend(name)
+        images.extend(image)
     return images, names
 
 
@@ -109,7 +107,7 @@ def main():
         pred.pop("affinity_map", None)
 
     predictions_by_page = defaultdict(list)
-    for idx, (pred, name) in enumerate(zip(predictions, names)):
+    for pred, name in zip(predictions, names):
         pred["page_number"] = len(predictions_by_page[name]) + 1
         predictions_by_page[name].append(pred)
 

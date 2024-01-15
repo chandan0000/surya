@@ -29,9 +29,7 @@ def intersection_pixels(box1, box2):
     y_top, y_bottom = int(y_top), int(y_bottom)
 
     coords = np.meshgrid(np.arange(x_left, x_right), np.arange(y_top, y_bottom))
-    pixels = set(zip(coords[0].flat, coords[1].flat))
-
-    return pixels
+    return set(zip(coords[0].flat, coords[1].flat))
 
 
 def calculate_coverage(box, other_boxes, penalize_double=False):
@@ -41,16 +39,13 @@ def calculate_coverage(box, other_boxes, penalize_double=False):
 
     # find total coverage of the box
     covered_pixels = set()
-    double_coverage = list()
+    double_coverage = []
     for other_box in other_boxes:
         ia = intersection_pixels(box, other_box)
         double_coverage.append(list(covered_pixels.intersection(ia)))
         covered_pixels = covered_pixels.union(ia)
 
-    # Penalize double coverage - having multiple bboxes overlapping the same pixels
-    double_coverage_penalty = len(double_coverage)
-    if not penalize_double:
-        double_coverage_penalty = 0
+    double_coverage_penalty = 0 if not penalize_double else len(double_coverage)
     covered_pixels_count = max(0, len(covered_pixels) - double_coverage_penalty)
     return covered_pixels_count / box_area
 
@@ -97,7 +92,4 @@ def mean_coverage(preds, references):
         coverages.append(coverage)
 
     # Calculate the average coverage over all comparisons
-    if len(coverages) == 0:
-        return 0
-    coverage = sum(coverages) / len(coverages)
-    return {"coverage": coverage}
+    return 0 if not coverages else {"coverage": sum(coverages) / len(coverages)}

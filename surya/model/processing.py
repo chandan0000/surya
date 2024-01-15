@@ -19,8 +19,7 @@ def split_image(img, processor):
         for i in range(num_splits):
             top = i * processor_height
             bottom = (i + 1) * processor_height
-            if bottom > img_height:
-                bottom = img_height
+            bottom = min(bottom, img_height)
             cropped = img.crop((0, top, img.size[0], bottom))
             height = bottom - top
             if height < processor_height:
