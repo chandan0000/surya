@@ -53,10 +53,8 @@ def detect_boxes(linemap, text_threshold, low_text):
         sx, ex, sy, ey = x - niter, x + w + niter + 1, y - niter, y + h + niter + 1
 
         # boundary checks
-        if sx < 0:
-            sx = 0
-        if sy < 0:
-            sy = 0
+        sx = max(sx, 0)
+        sy = max(sy, 0)
         if ex >= img_w:
             ex = img_w
         if ey >= img_h:

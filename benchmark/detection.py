@@ -85,9 +85,7 @@ def main():
     metric_types = sorted(page_metrics[0]["surya"].keys())
     for k in ["surya", "tesseract"]:
         for m in metric_types:
-            metric = []
-            for page in page_metrics:
-                metric.append(page_metrics[page][k][m])
+            metric = [page_metrics[page][k][m] for page in page_metrics]
             if k not in mean_metrics:
                 mean_metrics[k] = {}
             mean_metrics[k][m] = sum(metric) / len(metric)

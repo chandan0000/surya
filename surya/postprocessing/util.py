@@ -6,9 +6,7 @@ def get_line_angle(x1, y1, x2, y2):
     slope = (y2 - y1) / (x2 - x1)
 
     angle_radians = math.atan(slope)
-    angle_degrees = math.degrees(angle_radians)
-
-    return angle_degrees
+    return math.degrees(angle_radians)
 
 
 def rescale_bbox(bbox, processor_size, image_size):

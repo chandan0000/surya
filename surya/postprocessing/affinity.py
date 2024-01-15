@@ -160,7 +160,7 @@ def get_vertical_lines(image, new_size, orig_size, divisor=20, x_tolerance=40, y
 
     vertical_lines = [line for i, line in enumerate(vertical_lines) if i not in to_remove]
 
-    if len(vertical_lines) > 0:
+    if vertical_lines:
         # Always start with top left of page
         vertical_lines[0]["bbox"][1] = 0
 
